@@ -5,19 +5,37 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone={
-    title:'Article One',
-    name:'Article one by aniruddha',
-    date:'23 feb 2018',
-    contents:`<p>
-                This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
-            <p>
-                This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
-            </p>
-            
-            <p>
-                This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
-            </p>`
+var articles={
+    'article-one': {
+        title:'Article One',
+        name:'Article one by aniruddha',
+        date:'23 feb 2018',
+        contents:`<p>
+                    This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
+                <p>
+                    This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
+                </p>
+                
+                <p>
+                    This is my article one hope yout like ........,This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........This is my article one hope yout like ........
+                </p>`
+    },
+    'article-two': {
+        title:'Article Two',
+        name:'Article two by aniruddha',
+        date:'24 feb 2018',
+        contents:`<p>
+                    This is my article two....`
+        
+        },
+    'article-three': {
+        title:'Article Three',
+        name:'Article three by aniruddha',
+        date:'25 feb 2018',
+        contents:`<p>
+                    This is my article three....`
+        
+    }
 }
 
 function createTemplate(data)
@@ -58,9 +76,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get("/article-one", function(req,res)
+app.get("/:articleName", function(req,res)
 {
-    res.send(createTemplate(articleone));
+    var articleName = req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
 
 app.get("/article-two",function(req,res)
